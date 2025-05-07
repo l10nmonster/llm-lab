@@ -1,0 +1,29 @@
+{
+  "name": "llm-lab",
+  "version": "1.0.0",
+  "description": "Pit different LLM-based translators against each other",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/l10nmonster/llm-lab.git"
+  },
+  "keywords": ["llm", "translation", "evaluation"],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/l10nmonster/llm-lab/issues"
+  },
+  "homepage": "https://github.com/l10nmonster/llm-lab#readme",
+  "dependencies": {
+    "@l10nmonster/core": "./l10nmonster/core",
+    "@l10nmonster/helpers-googlecloud": "./l10nmonster/helpers-googlecloud",
+    "@l10nmonster/helpers-openai": "./l10nmonster/helpers-openai",
+    "@l10nmonster/helpers-translated": "./l10nmonster/helpers-translated",
+    "express": "^5.1.0",
+    "googleapis": "^148.0.0"
+  }
+}

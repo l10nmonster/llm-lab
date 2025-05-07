@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Lab</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 LLM Lab</h1>
+
+        <form id="llm-form">
+            <fieldset class="config-section">
+                <legend>Configuration</legend>
+                <div class="form-grid">
+                    <div class="form-group span-2">
+                        <label for="sheet-url">Google Sheet URL:</label>
+                        <input type="url" id="sheet-url" name="sheetUrl" required placeholder="e.g., https://docs.google.com/spreadsheets/d/SPREADSHEET_ID/edit#gid=SHEET_GID">
+                    </div>
+                    <div class="form-group">
+                        <label for="test-name">Test Name:</label>
+                        <input type="text" id="test-name" name="testName" required value="Test1"> <!-- Default value -->
+                    </div>
+                    <div class="form-group">
+                        <label for="source-language">Source Language:</label>
+                        <input type="text" id="source-language" name="sourceLanguage" placeholder="e.g., en-US" value="en-US"> <!-- Default value -->
+                    </div>
+                    <div class="form-group">
+                        <label for="source-column">Source Column:</label>
+                        <input type="text" id="source-column" name="sourceColumn" required value="A" pattern="[A-Za-z]+"> <!-- Default value & pattern -->
+                    </div>
+                    <div class="form-group">
+                        <label for="target-language">Target Language:</label>
+                        <input type="text" id="target-language" name="targetLanguage" placeholder="e.g., es-ES" value="ja-JP"> <!-- Default value -->
+                    </div>
+                    <div class="form-group">
+                        <label for="notes-column">Notes Column:</label>
+                        <input type="text" id="notes-column" name="notesColumn" placeholder="e.g., B (Optional)" value="B" pattern="[A-Za-z]*"> <!-- Default value & pattern, allow empty -->
+                    </div>
+                    <div class="form-group">
+                        <label for="start-row">Start Row:</label>
+                        <input type="number" id="start-row" name="startRow" min="1" value="2" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="end-row">End Row:</label>
+                        <input type="number" id="end-row" name="endRow" min="1" placeholder="(Optional - Auto-detect)">
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Translators</legend>
+                <div id="translators-container">
+                    <!-- Translator sections will be added here by JS -->
+                </div>
+                <button type="button" id="add-translator-btn" class="add-btn">+</button>
+            </fieldset>
+
+            <div class="submit-section">
+                 <button type="submit" id="submit-btn" class="go-btn">GO!</button>
+                 <div id="loading-animation" class="loading-hidden">
+                     <div class="beaker">
+                         <div class="liquid"></div>
+                         <div class="bubbles">
+                             <div class="bubble"></div>
+                             <div class="bubble"></div>
+                             <div class="bubble"></div>
+                         </div>
+                     </div>
+                     <span>Processing...</span>
+                 </div>
+                 <div id="status-message"></div>
+            </div>
+        </form>
+    </div>
+
+    <template id="translator-template">
+        <div class="translator-section">
+             <div class="translator-controls">
+                 <button type="button" class="remove-translator-btn remove-btn">-</button>
+             </div>
+            <div class="form-group">
+                <label for="provider-select-{id}">Provider:</label>
+                <select class="provider-select" name="provider" required>
+                    <option value="" disabled selected>Loading providers...</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="instructions-{id}">Instructions:</label>
+                <textarea class="instructions-textarea" name="instructions" rows="5" placeholder="Enter instructions for this provider... e.g., You are translating strings for a mobile app. Retain original tone."></textarea>
+            </div>
+        </div>
+    </template>
+
+    <script src="script.js"></script>
+</body>
+</html>
