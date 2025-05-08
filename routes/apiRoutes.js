@@ -112,7 +112,8 @@ router.post('/project', async (req, res) => {
 
         res.status(200).json({
             status: 'success',
-            message: `Project processed! Results in sheet: "${testName}".`,
+            message: `Success! Results in sheet: `,
+            sheetName: testName,
             sheetUrl: `https://docs.google.com/spreadsheets/d/${spreadsheetId}/edit#gid=${outputSheetId || ''}`
         });
 

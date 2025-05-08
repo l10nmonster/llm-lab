@@ -37,7 +37,7 @@ LLM Lab is a simple Express.js web application designed to help you experiment w
     ```bash
     git clone https://github.com/l10nmonster/llm-lab.git
     cd llm-lab
-    git clone https://github.com/l10nmonster/l10nmonster.git  --branch v3`
+    git clone https://github.com/l10nmonster/l10nmonster.git  --branch v3
     ```
 
 2.  **Install dependencies:**
@@ -64,7 +64,7 @@ LLM Lab is a simple Express.js web application designed to help you experiment w
         2.  Search for "Google Sheets API" and click on it.
         3.  Click the "Enable" button.
 
-    *   **d. Configure the OAuth Consent Screen:**
+    *   **d. Configure the OAuth Consent Screen:** (if needed)
         1.  Go to "APIs & Services" > "OAuth consent screen".
         2.  **User Type:** Choose "External" (unless you have a Google Workspace account and this is for internal use only). Click "CREATE".
         3.  **App information:**
@@ -104,7 +104,43 @@ LLM Lab is a simple Express.js web application designed to help you experiment w
             token.json
             ```
 
-4.  **Prepare your Google Sheet:**
+4.  **List your providers:**
+    *   Create a file called `providers.json` including your api keys following this example:
+
+    ```json
+    {
+        "Lara": {
+            "provider": "LaraProvider",
+            "keyId": "x",
+            "keySecret": "y",
+            "quality": 40,
+            "costPerMChar": 17
+        },
+        "MMT": {
+            "provider": "MMTProvider",
+            "apiKey": "x",
+            "quality": 40,
+            "costPerMChar": 15
+        },
+        "Gemini2.5Pro": {
+            "provider": "GPTAgent",
+            "quality": 40,
+            "baseURL": "https://generativelanguage.googleapis.com/v1beta/openai/",
+            "apiKey": "x",
+            "model": "gemini-2.5-pro-preview-05-06"
+        },
+        "GCT-NMT": {
+            "provider": "GCTProvider",
+            "model": "nmt",
+            "quality": 40,
+            "location": "us-central1"
+        }
+    }
+    ```
+
+    *   The file is in the `.gitignore` so it will not be checked in in git.
+
+5.  **Prepare your Google Sheet:**
     *   Create a new Google Sheet or use an existing one.
     *   Ensure the Google account you added as a "Test User" (and will use to authorize the app) has at least **Edit** access to this spreadsheet.
 

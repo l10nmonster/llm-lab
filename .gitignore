@@ -141,3 +141,4 @@ service-account-key.json
 credentials.json
 token.json
 l10nmonster*.db
+providers.json

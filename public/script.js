@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const link = document.createElement('a');
                 link.href = result.sheetUrl;
                 link.target = '_blank';
-                link.textContent = ' View Sheet';
+                link.textContent = result.sheetName;
                 statusMessageEl.appendChild(link);
             }
 

@@ -1,40 +1,29 @@
+import * as path from 'path';
+import { readFileSync } from 'fs';
 import { config } from '@l10nmonster/core';
 import { GPTAgent } from '@l10nmonster/helpers-openai';
 import { GCTProvider } from '@l10nmonster/helpers-googlecloud';
 import { MMTProvider, LaraProvider } from '@l10nmonster/helpers-translated';
 
-export const providers = [
-    new LaraProvider({
-        id: 'Lara',
-        keyId: process.env.lara_key_id,
-        keySecret: process.env.lara_key_secret,
-        quality: 40,
-        costPerMChar: 17,
-        saveIdenticalEntries: true,
-    }),
-    new MMTProvider({
-        id: 'MMT-Vanilla',
-        apiKey: process.env.mmt_api_key,
-        quality: 40,
-        costPerMChar: 15,
-        saveIdenticalEntries: true,
-    }),
-    new GPTAgent({
-        id: 'Gemini-25',
-        quality: 40,
-        baseURL: 'https://generativelanguage.googleapis.com/v1beta/openai/',
-        apiKey: process.env.gemini_api_key,
-        model: 'gemini-2.5-pro-exp-05-06',
-        saveIdenticalEntries: true,
-    }),
-    new GCTProvider({
-        id: 'GCT-NMT',
-        model: 'nmt',
-        quality: 40,
-        location: 'us-central1',
-        saveIdenticalEntries: true,
-    })
-];
+const providerFactories = {
+    LaraProvider,
+    MMTProvider,
+    GPTAgent,
+    GCTProvider,
+};
+
+export const providers = [];
+try {
+    const providersConfigPath = path.join(import.meta.dirname, '..', 'providers.json');
+    const providersConfig = JSON.parse(readFileSync(providersConfigPath, 'utf-8'));
+    for (const [ id, providerConfig ] of Object.entries(providersConfig)) {
+        const { provider, ...config } = providerConfig;
+        providers.push(new providerFactories[provider]({ ...config, saveIdenticalEntries: true, id }));
+    }
+} catch(e) {
+    console.log(e);
+    process.exit(1);
+}
 
 const l10nmonsterConfig = config.l10nMonster(import.meta.dirname).provider(providers);
 
