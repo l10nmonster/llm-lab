@@ -138,7 +138,7 @@ LLM Lab is a simple Express.js web application designed to help you experiment w
     }
     ```
 
-    *   The file is in the `.gitignore` so it will not be checked in in git.
+    *   The file is in `.gitignore` so it will not be checked in in git.
 
 5.  **Prepare your Google Sheet:**
     *   Create a new Google Sheet or use an existing one.
