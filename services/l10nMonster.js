@@ -20,7 +20,11 @@ try {
     const providersConfig = JSON.parse(readFileSync(providersConfigPath, 'utf-8'));
     for (const [ id, providerConfig ] of Object.entries(providersConfig)) {
         const { provider, ...config } = providerConfig;
-        providers.push(new providerFactories[provider]({ ...config, saveIdenticalEntries: true, id }));
+        const instance = new providerFactories[provider]({ ...config, saveIdenticalEntries: true, id });
+        const info = await instance.info();
+        console.log(`\nLoaded ${info.type} with id ${info.id}`);
+        info.description.forEach(line => console.log(`  ${line}`));
+        providers.push(instance);
     }
 } catch(e) {
     console.log(e);
