@@ -4,12 +4,14 @@ import { config } from '@l10nmonster/core';
 import { GPTAgent } from '@l10nmonster/helpers-openai';
 import { GCTProvider } from '@l10nmonster/helpers-googlecloud';
 import { MMTProvider, LaraProvider } from '@l10nmonster/helpers-translated';
+import { DeepLProvider } from '@l10nmonster/helpers-deepl';
 
 const providerFactories = {
     LaraProvider,
     MMTProvider,
     GPTAgent,
     GCTProvider,
+    DeepLProvider,
 };
 
 export const providers = [];
