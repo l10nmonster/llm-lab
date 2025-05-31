@@ -2,7 +2,7 @@ import * as path from 'path';
 import { readFileSync } from 'fs';
 import { config } from '@l10nmonster/core';
 import { GPTAgent } from '@l10nmonster/helpers-openai';
-import { GCTProvider } from '@l10nmonster/helpers-googlecloud';
+import { GCTProvider, GenAIAgent } from '@l10nmonster/helpers-googlecloud';
 import { MMTProvider, LaraProvider } from '@l10nmonster/helpers-translated';
 import { DeepLProvider } from '@l10nmonster/helpers-deepl';
 
@@ -12,6 +12,7 @@ const providerFactories = {
     GPTAgent,
     GCTProvider,
     DeepLProvider,
+    GenAIAgent,
 };
 
 export const providers = [];
