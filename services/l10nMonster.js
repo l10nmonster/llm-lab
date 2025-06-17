@@ -1,6 +1,7 @@
 import * as path from 'path';
 import { readFileSync } from 'fs';
-import { config } from '@l10nmonster/core';
+import { config, stores } from '@l10nmonster/core';
+import { AnthropicAgent } from '@l10nmonster/helpers-anthropic';
 import { GPTAgent } from '@l10nmonster/helpers-openai';
 import { GCTProvider, GenAIAgent } from '@l10nmonster/helpers-googlecloud';
 import { MMTProvider, LaraProvider } from '@l10nmonster/helpers-translated';
@@ -13,6 +14,7 @@ const providerFactories = {
     GCTProvider,
     DeepLProvider,
     GenAIAgent,
+    AnthropicAgent,
 };
 
 export const providers = [];
@@ -32,7 +34,11 @@ try {
     process.exit(1);
 }
 
-const l10nmonsterConfig = config.l10nMonster(import.meta.dirname).provider(providers);
+const l10nmonsterConfig = config.l10nMonster(import.meta.dirname)
+    .provider(providers)
+    .operations({
+        opsStore: new stores.FsOpsStore(path.join(import.meta.dirname, 'l10nOps')),
+    });
 
 export async function translate(translators, { sourceDataPairs, sourceLang, targetLang }) {
     return await l10nmonsterConfig.run({ verbose: 3 }, async (l10n, mm) => {

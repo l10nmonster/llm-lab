@@ -20,6 +20,7 @@
   "homepage": "https://github.com/l10nmonster/llm-lab#readme",
   "dependencies": {
     "@l10nmonster/core": "./l10nmonster/core",
+    "@l10nmonster/helpers-anthropic": "./l10nmonster/helpers-anthropic",
     "@l10nmonster/helpers-deepl": "./l10nmonster/helpers-deepl",
     "@l10nmonster/helpers-googlecloud": "./l10nmonster/helpers-googlecloud",
     "@l10nmonster/helpers-openai": "./l10nmonster/helpers-openai",

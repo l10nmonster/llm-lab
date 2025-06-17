@@ -142,3 +142,4 @@ credentials.json
 token.json
 l10nmonster*.db
 providers.json
+services/l10nOps/*
