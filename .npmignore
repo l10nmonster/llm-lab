@@ -1,0 +1,111 @@
+# Development files
+.git/
+.gitignore
+.gitattributes
+.editorconfig
+.vscode/
+.idea/
+jsconfig.json
+
+# Dependencies (will be installed by npm)
+node_modules/
+
+# Environment and configuration files
+.env*
+*.local
+service-account-key.json
+credentials.json
+token.json
+llm-lab.config.json
+
+# Logs and debug files
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage and test files
+coverage/
+*.lcov
+.nyc_output/
+test/
+tests/
+**/*.test.js
+**/*.spec.js
+
+# Cache directories
+.cache/
+.parcel-cache/
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+.npm/
+.eslintcache/
+.stylelintcache/
+
+# Build outputs (if any)
+dist/
+build/
+out/
+.next/
+.nuxt/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+l10nmonster*.db
+
+# Documentation that's not needed in package
+docs/
+documentation/
+examples/
+demo/
+
+# Development dependencies and tools
+.prettier*
+.eslint*
+.babel*
+webpack.config.js
+rollup.config.js
+tsconfig.json
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# l10nOps directory (appears to be excluded in gitignore)
+l10nOps/
+
+# CI/CD files
+.github/
+.gitlab-ci.yml
+.travis.yml
+circle.yml
+appveyor.yml
+
+# Package manager files
+yarn.lock
+package-lock.json
+pnpm-lock.yaml
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp 

@@ -7,6 +7,8 @@ import { GCTProvider, GenAIAgent } from '@l10nmonster/helpers-googlecloud';
 import { MMTProvider, LaraProvider } from '@l10nmonster/helpers-translated';
 import { DeepLProvider } from '@l10nmonster/helpers-deepl';
 
+let l10nmonsterConfig;
+
 const providerFactories = {
     LaraProvider,
     MMTProvider,
@@ -18,30 +20,31 @@ const providerFactories = {
 };
 
 export const providers = [];
-try {
-    const providersConfigPath = path.join(import.meta.dirname, '..', 'providers.json');
-    const providersConfig = JSON.parse(readFileSync(providersConfigPath, 'utf-8'));
-    for (const [ id, providerConfig ] of Object.entries(providersConfig)) {
-        const { provider, ...config } = providerConfig;
-        const instance = new providerFactories[provider]({ ...config, saveIdenticalEntries: true, id });
-        const info = await instance.info();
-        console.log(`\nLoaded ${info.type} with id ${info.id}`);
-        info.description.forEach(line => console.log(`  ${line}`));
-        providers.push(instance);
+
+export async function initializeL10nMonster(configFile) {
+    try {
+        const providersConfig = JSON.parse(readFileSync(configFile, 'utf-8'));
+        for (const [ id, providerConfig ] of Object.entries(providersConfig)) {
+            const { provider, ...config } = providerConfig;
+            const instance = new providerFactories[provider]({ ...config, saveIdenticalEntries: true, id });
+            const info = await instance.info();
+            console.log(`\nLoaded ${info.type} with id ${info.id}`);
+            info.description.forEach(line => console.log(`  ${line}`));
+            providers.push(instance);
+        }
+        l10nmonsterConfig = config.l10nMonster(import.meta.dirname)
+        .provider(providers)
+        .operations({
+            opsStore: new stores.FsOpsStore('l10nOps'),
+        });
+    } catch(e) {
+        console.log(e);
+        process.exit(1);
     }
-} catch(e) {
-    console.log(e);
-    process.exit(1);
 }
 
-const l10nmonsterConfig = config.l10nMonster(import.meta.dirname)
-    .provider(providers)
-    .operations({
-        opsStore: new stores.FsOpsStore(path.join(import.meta.dirname, 'l10nOps')),
-    });
-
 export async function translate(translators, { sourceDataPairs, sourceLang, targetLang }) {
-    return await l10nmonsterConfig.run({ verbose: 3 }, async (l10n, mm) => {
+    return await l10nmonsterConfig.verbose(3).run(async mm => {
         const translations = [];
         for (const translator of translators) {
 

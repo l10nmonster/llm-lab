@@ -1,17 +1,25 @@
 {
-  "name": "llm-lab",
+  "name": "@l10nmonster/llm-lab",
   "version": "1.0.0",
   "description": "Pit different LLM-based translators against each other",
   "main": "server.js",
   "type": "module",
+  "bin": {
+    "llm-lab": "cli.js"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/l10nmonster/llm-lab.git"
   },
-  "keywords": ["llm", "translation", "evaluation"],
+  "keywords": [
+    "llm",
+    "translation",
+    "evaluation"
+  ],
   "author": "",
   "license": "MIT",
   "bugs": {
@@ -19,13 +27,14 @@
   },
   "homepage": "https://github.com/l10nmonster/llm-lab#readme",
   "dependencies": {
-    "@l10nmonster/core": "./l10nmonster/core",
-    "@l10nmonster/helpers-anthropic": "./l10nmonster/helpers-anthropic",
-    "@l10nmonster/helpers-deepl": "./l10nmonster/helpers-deepl",
-    "@l10nmonster/helpers-googlecloud": "./l10nmonster/helpers-googlecloud",
-    "@l10nmonster/helpers-openai": "./l10nmonster/helpers-openai",
-    "@l10nmonster/helpers-translated": "./l10nmonster/helpers-translated",
+    "@l10nmonster/core": "^3.0.0-alpha.3",
+    "@l10nmonster/helpers-anthropic": "^3.0.0-alpha.3",
+    "@l10nmonster/helpers-deepl": "^3.0.0-alpha.3",
+    "@l10nmonster/helpers-googlecloud": "^3.0.0-alpha.3",
+    "@l10nmonster/helpers-openai": "^3.0.0-alpha.3",
+    "@l10nmonster/helpers-translated": "^3.0.0-alpha.3",
     "express": "^5.1.0",
-    "googleapis": "^148.0.0"
+    "googleapis": "^153.0.0",
+    "open": "^10.1.0"
   }
 }

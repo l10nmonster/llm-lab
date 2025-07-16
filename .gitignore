@@ -141,5 +141,5 @@ service-account-key.json
 credentials.json
 token.json
 l10nmonster*.db
-providers.json
-services/l10nOps/*
+llm-lab.config.json
+l10nOps/*

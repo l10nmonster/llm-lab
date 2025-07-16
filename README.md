@@ -127,7 +127,7 @@ LLM Lab is a simple Express.js web application designed to help you experiment w
             "quality": 40,
             "baseURL": "https://generativelanguage.googleapis.com/v1beta/openai/",
             "apiKey": "x",
-            "model": "gemini-2.5-pro-preview-05-06"
+            "model": "gemini-2.5-pro"
         },
         "GCT-NMT": {
             "provider": "GCTProvider",
@@ -146,7 +146,36 @@ LLM Lab is a simple Express.js web application designed to help you experiment w
 
 ## Running the Application
 
-1.  **Start the server:**
+### Method 1: Using the CLI (Recommended)
+
+1.  **Use the CLI with a config file:**
+    The easiest way to start LLM Lab is using the CLI command with a config file:
+    ```bash
+    npx @l10nmonster/llm-lab [filename]
+    ```
+    
+    For example:
+    ```bash
+    npx @l10nmonster/llm-lab providers.json
+    ```
+    
+    This will:
+    - Start the server automatically
+    - Load the specified file for processing
+    - Open your default browser automatically when the server is ready
+    - Display the target file path in the server logs
+
+    If the config file is not specified, `llm-lab.config.json` is assumed.
+
+2.  **CLI Help:**
+    To see usage instructions:
+    ```bash
+    npx @l10nmonster/llm-lab --help
+    ```
+
+### Method 2: Direct Server Start
+
+1.  **Start the server manually:**
     Open your terminal, and make sure you have the necessary api keys exported for the providers you'll use. Then navigate to the `llm-lab` project root, and run:
     ```bash
     node server.js
@@ -193,6 +222,72 @@ LLM Lab is a simple Express.js web application designed to help you experiment w
     *   Clicking "GO!" submits all the configured data to the `/api/project` backend endpoint.
     *   An animation will show while the backend processes the request.
     *   A status message (success or error) will be displayed. If successful, a link to the newly created results sheet will appear.
+
+## Publishing to npm
+
+This section is for maintainers who want to publish new versions of the package to npm.
+
+### Pre-Publishing Checklist
+
+1.  **Verify package contents:**
+    Before publishing, always run a dry-run to see exactly what files will be included in the package:
+    ```bash
+    npm pack --dry-run
+    ```
+    
+    This command will show you:
+    - Total package size (compressed and unpacked)
+    - List of all files that will be included
+    - What files are being excluded by `.npmignore`
+
+2.  **Update version:**
+    Update the version in `package.json` using semantic versioning:
+    ```bash
+    # For patch releases (bug fixes)
+    npm version patch
+
+    # For minor releases (new features, backwards compatible)
+    npm version minor
+
+    # For major releases (breaking changes)
+    npm version major
+
+    # For pre-release versions (alpha, beta, rc)
+    npm version prerelease --preid=alpha
+    ```
+
+3.  **Review changes:**
+    Make sure all intended changes are included and no sensitive files are being published.
+
+### Publishing
+
+1.  **Login to npm:**
+    ```bash
+    npm login
+    ```
+
+2.  **Publish the package:**
+    ```bash
+    # For stable releases (public scoped package)
+    npm publish --access public
+
+    # For pre-release versions (alpha, beta, etc.)
+    npm publish --access public --tag alpha
+    ```
+
+### Package Structure
+
+The published package includes:
+- **Core application files:** `server.js`, `cli.js`
+- **Source code:** `services/`, `routes/`, `utils/`, `public/`
+- **Documentation:** `LICENSE`, `README.md`
+- **Configuration:** `package.json`, `jsconfig.json`
+
+**Excluded from package:**
+- Development files (`.git/`, `.gitignore`, etc.)
+- Dependencies (`node_modules/`, lockfiles)
+- Sensitive files (`token.json`, `credentials.json`, config files)
+- Build artifacts and temporary files
 
 ## Troubleshooting
 

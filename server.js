@@ -1,23 +1,23 @@
 // server.js
 import express from 'express';
 import path from 'path';
-import { fileURLToPath } from 'url';
-// Use default import for the router and .js extension
+import open from 'open';
+import { initializeL10nMonster } from './services/l10nMonster.js';
 import apiRoutes from './routes/apiRoutes.js';
 // Use named imports and .js extension
 import * as googleAuth from './services/googleAuth.js';
 
-// --- Replicate __dirname ---
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 const app = express();
 const port = 3000;
 
+// Get the filename and initialize L10nMonster
+const targetFile = process.env.LLM_LAB_FILE ?? 'llm-lab.config.json';
+console.log(`Working with config file: ${targetFile}`);
+await initializeL10nMonster(targetFile);
+
 // --- Middleware ---
 app.use(express.json());
-// Use the ESM-compatible __dirname
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(import.meta.dirname, 'public')));
 
 // --- API Routes ---
 app.use('/api', apiRoutes); // Mount API routes
@@ -26,7 +26,8 @@ app.use('/api', apiRoutes); // Mount API routes
 app.get('/oauth2callback', async (req, res) => {
     const code = req.query.code;
     if (!code) {
-        return res.status(400).send('Authorization code missing.');
+        res.status(400).send('Authorization code missing.');
+        return;
     }
     const result = await googleAuth.handleCallback(code);
     if (result.success) {
@@ -59,17 +60,27 @@ try {
     await googleAuth.authorize();
     console.log("Authorization check complete (may require user action).");
 
-    app.listen(port, () => {
+    const server = app.listen(port, async () => {
+        const url = `http://localhost:${port}`;
         console.log(`--------------------------------------------------`);
-        console.log(`LLM Lab server listening at http://localhost:${port}`);
-        console.log(`Access the UI at http://localhost:${port}`);
+        console.log(`LLM Lab server listening at ${url}`);
+        console.log(`Access the UI at ${url}`);
         console.log(`API endpoints are mounted under /api`);
         console.log('Ensure credentials.json is present and gitignored.');
         console.log('Ensure token.json is gitignored.');
         console.log(`--------------------------------------------------`);
+        
+        try {
+            console.log('Opening browser...');
+            await open(url);
+        } catch (browserError) {
+            console.warn('Could not automatically open browser:', browserError.message);
+            console.log(`Please manually open: ${url}`);
+        }
     });
 } catch (error) {
      console.error("Error during server startup:", error.message);
      console.error("Server startup failed.");
+     console.error("Ensure you have logged in to GCP with 'gcloud auth login'");
      process.exit(1);
 }

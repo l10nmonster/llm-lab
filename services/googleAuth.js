@@ -1,24 +1,18 @@
 // services/googleAuth.js
 import fs from 'fs/promises'; // Use direct import
 import path from 'path';       // Use direct import
-import { fileURLToPath } from 'url'; // To replicate __dirname
 import { google } from 'googleapis'; // Use direct import
 
-// --- Replicate __dirname ---
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 // --- Configuration ---
-// Now construct paths relative to the ESM __dirname
-const CREDENTIALS_PATH = path.join(__dirname, '..', 'credentials.json');
-const TOKEN_PATH = path.join(__dirname, '..', 'token.json');
+const CREDENTIALS_PATH = path.join(import.meta.dirname, '..', 'credentials.json');
+const TOKEN_PATH = path.join(import.meta.dirname, '..', 'token.json');
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 
 let oauth2Client = null;
 
 async function loadCredentials() {
     try {
-        const content = await fs.readFile(CREDENTIALS_PATH);
+        const content = await fs.readFile(CREDENTIALS_PATH, 'utf-8');
         const credentials = JSON.parse(content).web;
         if (!credentials || !credentials.client_id || !credentials.client_secret || !credentials.redirect_uris || !credentials.redirect_uris[0]) {
             throw new Error("Credentials file is missing required fields.");
@@ -54,7 +48,7 @@ async function authorize() {
     const tempClient = await createOAuthClient();
 
     try {
-        const tokenContent = await fs.readFile(TOKEN_PATH);
+        const tokenContent = await fs.readFile(TOKEN_PATH, 'utf-8');
         const token = JSON.parse(tokenContent);
         if (!token.refresh_token) {
              throw new Error("Stored token is missing refresh_token. Re-authorization required.");
