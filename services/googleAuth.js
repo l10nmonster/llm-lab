@@ -1,11 +1,10 @@
 // services/googleAuth.js
-import fs from 'fs/promises'; // Use direct import
-import path from 'path';       // Use direct import
-import { google } from 'googleapis'; // Use direct import
+import fs from 'fs/promises';
+import { google } from 'googleapis';
 
 // --- Configuration ---
-const CREDENTIALS_PATH = path.join(import.meta.dirname, '..', 'credentials.json');
-const TOKEN_PATH = path.join(import.meta.dirname, '..', 'token.json');
+const CREDENTIALS_PATH = 'credentials.json';
+const TOKEN_PATH = 'token.json';
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 
 let oauth2Client = null;

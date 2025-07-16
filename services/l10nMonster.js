@@ -32,7 +32,7 @@ export async function initializeL10nMonster(configFile) {
             info.description.forEach(line => console.log(`  ${line}`));
             providers.push(instance);
         }
-        l10nmonsterConfig = config.l10nMonster(import.meta.dirname)
+        l10nmonsterConfig = config.l10nMonster('.')
         .provider(providers)
         .operations({
             opsStore: new stores.FsOpsStore('l10nOps'),

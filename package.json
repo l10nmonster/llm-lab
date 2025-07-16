@@ -1,6 +1,6 @@
 {
   "name": "@l10nmonster/llm-lab",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Pit different LLM-based translators against each other",
   "main": "server.js",
   "type": "module",
