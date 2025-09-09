@@ -61,6 +61,8 @@ export async function translate(translators, { sourceDataPairs, sourceLang, targ
                 mf: 'text',
                 minQ: 1,
             })),
+        },
+        {
             providerList: [ translator.provider ],
         });
         if (assignedJobs.length !== 1 || assignedJobs[0].translationProvider !== translator.provider) {
