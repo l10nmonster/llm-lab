@@ -1,6 +1,6 @@
 {
   "name": "@l10nmonster/llm-lab",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Pit different LLM-based translators against each other",
   "main": "server.js",
   "type": "module",
@@ -27,12 +27,12 @@
   },
   "homepage": "https://github.com/l10nmonster/llm-lab#readme",
   "dependencies": {
-    "@l10nmonster/core": "^3.0.0-alpha.7",
-    "@l10nmonster/helpers-anthropic": "^3.0.0-alpha.7",
-    "@l10nmonster/helpers-deepl": "^3.0.0-alpha.7",
-    "@l10nmonster/helpers-googlecloud": "^3.0.0-alpha.7",
-    "@l10nmonster/helpers-openai": "^3.0.0-alpha.7",
-    "@l10nmonster/helpers-translated": "^3.0.0-alpha.7",
+    "@l10nmonster/core": "^3.0.0-alpha.12",
+    "@l10nmonster/helpers-anthropic": "^3.0.0-alpha.12",
+    "@l10nmonster/helpers-deepl": "^3.0.0-alpha.12",
+    "@l10nmonster/helpers-googlecloud": "^3.0.0-alpha.12",
+    "@l10nmonster/helpers-openai": "^3.0.0-alpha.12",
+    "@l10nmonster/helpers-translated": "^3.0.0-alpha.12",
     "express": "^5.1.0",
     "googleapis": "^153.0.0",
     "open": "^10.1.0"
